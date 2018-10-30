@@ -1,485 +1,370 @@
 <!doctype html>
 <html>
-
 <head>
-    <meta charset="utf-8">
-
-    <title>Smarthome</title>
-
-    <link rel="shortcut icon" href="favicon.ico">
-    <!-- ######################################################################
-
-        .oooooo..o                     o8o                 .
-       d8P'    `Y8                     `"'               .o8
-       Y88bo.       .ooooo.  oooo d8b oooo  oo.ooooo.  .o888oo  .oooo.o
-        `"Y8888o.  d88' `"Y8 `888""8P `888   888' `88b   888   d88(  "8
-            `"Y88b 888        888      888   888   888   888   `"Y88b.
-       oo     .d8P 888   .o8  888      888   888   888   888 . o.  )88b
-       8""88888P'  `Y8bod8P' d888b    o888o  888bod8P'   "888" 8""888P'
-                                             888
-                                            o888o
-     ###################################################################### -->
-    <style>
-        @font-face{font-family:'PT Sans';font-style:normal;font-weight:700;src:url(fonts/pts75f_w.eot);src:local('PT Sans Bold'),url(fonts/PTS75F_W.woff) format("woff")}@font-face{font-family:'PT Sans Narrow';font-weight:700;src:url(fonts/ptn77f_w.eot);src:local('PT Sans Narrow Bold'),url(fonts/PTN77F_W.woff) format("woff")}html{font-size:100%;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}a:focus{outline:thin dotted #333;outline:5px auto -webkit-focus-ring-color;outline-offset:-2px}a:hover,a:active{outline:0}body{margin:0;font-family:"PT Sans","Helvetica Neue",Helvetica,Arial,sans-serif;font-size:15px;line-height:20px;color:#222;background-color:#fff}a{color:#2c3e50;text-decoration:none}a:hover,a:focus{color:#354b60;text-decoration:underline}img{width:auto\9;height:auto;max-width:100%;vertical-align:middle;border:0;-ms-interpolation-mode:bicubic}.main__greeting{font-family:"PT Sans","Helvetica Neue",Helvetica,Arial,sans-serif}.adjust-bar{-webkit-appearance:none;appearance:none;outline:none;border-radius:30px;width:100%;height:60px;margin:0;display:flex;justify-content:space-between;align-items:center;position:relative}.adjust-bar::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;cursor:pointer;width:60px;height:60px;border:3px solid rgba(51,51,51,0.1);border-radius:30px;box-shadow:0 0 0 4px #fff}.adjust-bar::-moz-range-thumb{box-sizing:border-box;cursor:pointer;width:60px;height:60px;border:3px solid rgba(51,51,51,0.1);border-radius:30px;background:transparent;box-shadow:0 0 0 4px #fff}.adjust-bar::-moz-range-track{background:transparent}.adjust-bar__container_theme_temp{position:relative}.adjust-bar__container_theme_temp::before,.adjust-bar__container_theme_temp::after{color:#fff;font-size:18px;font-weight:700;position:absolute;top:20px;z-index:1;pointer-events:none}.adjust-bar__container_theme_temp::before{content:'–10';left:15px}.adjust-bar__container_theme_temp::after{content:'+30';right:15px}.adjust-bar__container_theme_light{position:relative}.adjust-bar__container_theme_light::before,.adjust-bar__container_theme_light::after{content:'';position:absolute;z-index:1;pointer-events:none}.adjust-bar__container_theme_light::before{top:14px;left:14px;width:30px;height:30px;background:url(assets/adjust-bar_light_from.svg) center center/contain no-repeat}.adjust-bar__container_theme_light::after{top:13px;right:13px;width:34px;height:34px;background:url(assets/adjust-bar_light_to.svg) center center/contain no-repeat}.adjust-bar_theme_temp{background-image:linear-gradient(90deg,#068fff 0%,#ffd800 50%,#f76b1c 100%)}.adjust-bar_theme_light{background-image:linear-gradient(90deg,#ffe682 0%,#ff9e00 100%)}.button{cursor:pointer;display:flex;justify-content:center;align-items:center;background:#fff}.button_color_yellow{background:#ffd93e}.button_size_l{font-size:18px;font-weight:700;height:60px;border-radius:20px}.button:hover{box-shadow:0 2px 6px 0 rgba(255,225,225,0.6)}.button:active{box-shadow:none}.content{width:100%;display:flex;flex-wrap:wrap;justify-content:space-between;padding-top:29px}.content__item{width:100%;margin-bottom:29px;position:relative}.content__item_half{width:49%}.content__item_main{padding-left:40px}.content__item_scenarios{padding-right:40px}.content__item-header{font-size:18px;font-weight:700;margin-bottom:20px}.content__item-header_devices{padding-left:40px;display:inline-block;margin-right:11px}#root{position:absolute;left:-10000px}.devices{display:flex;justify-content:flex-start;overflow-x:hidden;padding:20px 0 6px 40px}.devices__panel{margin-right:15px}.devices::after{content:'';display:inline-block;min-width:25px}.devices__paginator{position:absolute;top:0;right:40px}.filter__select{display:none}.filter__item-label{display:inline-block;font-size:13px;line-height:1;font-weight:700;background:#f7f7f7;min-height:30px;padding:8px 13px;border-radius:15px;margin-right:11px;cursor:pointer}.filter__item-label:hover{background:#ffd93e}.filter__item-radio{display:none}.filter__item-radio:checked + label{background:#ffd93e}.filter__item-radio_kitchen:checked ~ .devices .panel{display:none}.filter__item-radio_kitchen:checked ~ .devices .panel_kitchen{display:flex}.filter__item-radio_room:checked ~ .devices .panel{display:none}.filter__item-radio_room:checked ~ .devices .panel_room{display:flex}.filter__item-radio_lamp:checked ~ .devices .panel{display:none}.filter__item-radio_lamp:checked ~ .devices .panel_lamp{display:flex}.filter__item-radio_cam:checked ~ .devices .panel{display:none}.filter__item-radio_cam:checked ~ .devices .panel_cam{display:flex}.footer{flex:0 0 auto;display:flex;justify-content:flex-start;align-items:center;flex-wrap:wrap;padding-left:40px;width:100%;height:60px;font-size:12px}.footer__link{margin-right:20px}.header{width:100%;height:92px;padding:0 40px;border-bottom:1px solid #f0f0f0;display:flex;align-items:center;background:#fff}.knob{width:220px;height:220px;display:flex;justify-content:center;align-items:center;position:relative}.knob svg{width:220px;height:220px;transform:rotate(90deg)}.knob__indicator{fill:none;stroke:#f5a623;stroke-width:20px;stroke-dasharray:0 629;transform:rotate(29deg)}.knob__indicator-bounds{fill:transparent;stroke:#fff;stroke-width:21px;stroke-dasharray:99 629;transform:rotate(-29deg)}.knob__indicator-bg{fill:rgba(51,51,51,0.7)}.knob__indicator-mask{fill:transparent;stroke:#fff;stroke-width:22px;stroke-dasharray:4 1;transform:rotate(1deg)}.knob__self{fill:#fefefe;filter:url(#knob-shadow);cursor:pointer}.knob__value{font-size:66px;font-weight:700;position:absolute;user-select:none;pointer-events:none}.knob__wrapper{display:flex;justify-content:center;align-items:center;height:80%}.link,.link:active,.link:visited{color:rgba(51,51,51,0.6)}.link{text-decoration:none}.link_active,.link:hover{color:inherit}.logo{display:inline-block;width:108px;height:27px;position:relative;background-image:url('data:image/png;base64,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');background-repeat:no-repeat;background-position:left top;background-size:cover}.logo__ya{display:block;position:absolute;z-index:10;outline:0;height:100%;width:69px;left:0;top:0}.logo__ya-sub{display:block;position:absolute;z-index:5;outline:0;height:100%;width:100%;left:0;top:0}.main{height:331px;border-radius:20px;padding:0 20px 0 25px;display:flex;justify-content:space-between;background:url(assets/sh.webp) center center/cover no-repeat}.main__greeting{margin-top:6px;font-size:27px;font-weight:700}.main__info{width:61.585%;padding-top:20px;padding-left:20px;background:rgba(255,255,255,0.6)}.main__panel{margin-bottom:14px;position:relative}.main__status{margin-top:6px;line-height:16px}.main__upcoming{width:220px;height:100%;overflow-y:scroll}.main__upcoming-wrapper{width:200px;height:100%;overflow:hidden}.main__weather{margin-top:25px}.menu{margin-left:52px}.menu__icon{display:none}.menu__item{margin-right:27px;font-size:16px;font-weight:700}.menu__list{display:flex;justify-content:flex-start;list-style:none;padding:0;margin:0}.modal{display:none;flex-direction:column;justify-content:center;align-items:center;position:fixed;z-index:1;left:0;top:0;width:100%;height:100%;overflow:auto;background:rgba(51,51,51,0.5)}.modal_open{display:flex}.modal_open .modal__content{animation:modal .2s ease forwards}.modal__title{font-size:27px;font-weight:700;margin-bottom:6px}.modal__value{box-sizing:content-box;position:absolute;top:20px;right:20px;font-size:36px;font-weight:700;max-width:62px;height:40px;padding-right:32px}.modal__value_temp{background:url(assets/panel__icon_temp_on.svg) calc(100% + 10px) 0%/contain no-repeat}.modal__value_light{height:45px;padding-right:45px;background:url(assets/panel__icon_light_off.svg) right center/contain no-repeat}.modal__status{margin-bottom:20px}.modal__adjust{margin-top:25px}.modal__button{width:48.5%}.modal__content{max-width:640px;width:100%}.modal__body{position:relative;flex-shrink:0;padding:25px;margin-bottom:15px;border-radius:20px;background:#fff}.modal__controls{width:100%;display:flex;justify-content:space-between;flex-wrap:wrap}@keyframes modal{from{transform:scale(0.2)}}*{box-sizing:border-box}html{height:100%}.page{height:100%;font:14px Arial,sans-serif;color:#333;line-height:1.143;margin:0 auto;padding:0;width:1366px}.page__wrapper{display:flex;flex-direction:column;height:100%}.page__wrapper-content{flex:1 0 auto}.paginator{height:16px;width:47px;display:flex;justify-content:space-between}.paginator div{width:16px}.paginator_hide{display:none}.paginator__arrow{opacity:1;cursor:pointer}.paginator__arrow:hover{opacity:.5}.paginator__arrow:active{opacity:.3}.paginator__arrow_disabled{opacity:.3}.panel{padding:14px;min-height:100px;width:200px;border-radius:20px;display:flex;flex-direction:column;justify-content:space-between;flex-shrink:0;background:#f7f7f7;cursor:pointer;transition:opacity .3s ease-out}.panel:hover{background:#fff;box-shadow:0 2px 6px 0 rgba(197,186,186,0.5)}.panel:active{box-shadow:none}.panel_device{height:120px}.panel_first{margin-top:20px}.panel_last{margin-bottom:20px}.panel__sub{font-size:12px;color:#858585}.panel__title{font-weight:700;margin-bottom:4px}.scenarios{max-height:331px;background:#fff;display:flex;justify-content:flex-start;overflow-x:hidden}.scenarios__page{display:grid;grid-template-columns:repeat(3,200px);grid-template-rows:repeat(3,100px);grid-column-gap:15px;grid-row-gap:15px;justify-content:space-between;margin-right:15px}.scenarios__paginator{position:absolute;top:0;right:40px}.scenarios_hide{display:none}.weather{display:flex}.weather__item{margin-right:18px}.weather__item-title{color:#858585;margin-bottom:4px}.weather__item-temp{font-size:36px;font-weight:700;line-height:1.16;font-family:"PT Sans Narrow","Helvetica Neue",Helvetica,Arial,sans-serif}.weather__item_outside{padding-right:31px}.weather__item_cloud-drizzle{background:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADQAAAA0CAMAAADypuvZAAAAhFBMVEUAAAAzMzM1NTVOTk4zMzMzMzMzMzMzMzMzMzMzMzM0NDQzMzMzMzM3Nzc3NzczMzM0NDQ2NjYzMzMzMzM0NDQ0NDQ1NTU9PT1BQUFAQEAzMzMzMzMzMzM0NDQ1NTU1NTUzMzMzMzMzMzMzMzMzMzMzMzM0NDQ0NDQ0NDQ0NDQ0NDQzMzNqA3FVAAAAK3RSTlMA54gG+vDFb+zLPb9oHRe5RiHzgUI5KA8LBPXWsGtMNODb0JOOeJ5iU6Khe0SjWQAAAc5JREFUSMetVNt2gjAQ5H4TEAFFBMW7bfP//1fJBhPYpCnnME9x45CdnUmMBbDzn6EZ5Kb37Sf/Y+z9kAi4xraWUscmmcA8ajibkEiw+rPJU0CkcDM158shCjgn5TkfTlNkyd7eZFbzYWUKPTkBeBEvlh4rBnJdbNuJx2X/wD5VSzg+07ydbkQu7LwwxwZ/DpzDWaD1jF0+Egqpkb5qrwEbDSmY5fll/diJo4NyKSeVhGMdTTq4qiy8EAH3QVxLfxYqUjHO4l7sulSRknzE8uAsSKo6zVHojDqkRSiB6UqkZTGcSO0E1/teNbyWzZC3lxpa2Ctg9X5d6Soz9Kigqcd7+aMcuW2ZpiXG7gb9fcxtJCSr37CEwpb0uPRPHaGIMImm30SJO3B3PUwiFOIA4d4J8Y+REkSK4HbRh9WEy76dKMGkOy20dB2z6x6NlGBSGrCR96hDAgo74a94EDU3l04lYBHmJDzyZM1jJD6WLichc18uAXTCs4xOQi8M4CYUM5eQoMNKBpyHq2uPkh/HKQoPx6C6mtSRuSKe0JtY19Or9t1apyHgRitpZ/qUY2hTrlcyi4RTPkPJTBJOuR445XrglC8w6OUsxUrmmLs4fgEYwXXxNRCQ6wAAAABJRU5ErkJggg==') 100% 70%/26px no-repeat}.stats{opacity:0}.panel__icon{width:24px;height:24px}.panel__icon_temp_off{background:url(assets/panel__icon_temp_off.svg) center center/contain no-repeat}.panel__icon_temp_on{background:url(assets/panel__icon_temp_on.svg) center center/contain no-repeat}.panel__icon_light_off{background:url(assets/panel__icon_light_off.svg) center center/contain no-repeat}.panel__icon_light_on{background:url(assets/panel__icon_light_on.svg) center center/contain no-repeat}.panel__icon_clock{background:url(assets/panel__icon_clock.svg) center center/contain no-repeat}
-    </style>
+<meta charset=utf-8>
+<title>Smarthome</title>
+<link rel="shortcut icon" href=favicon.ico>
+<style>@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;src:url(fonts/pts75f_w.eot);src:local('PT Sans Bold'),url(fonts/PTS75F_W.woff) format("woff")}@font-face{font-family:'PT Sans Narrow';font-weight:700;src:url(fonts/ptn77f_w.eot);src:local('PT Sans Narrow Bold'),url(fonts/PTN77F_W.woff) format("woff")}html{font-size:100%;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}a:focus{outline:thin dotted #333;outline:5px auto -webkit-focus-ring-color;outline-offset:-2px}a:hover,a:active{outline:0}body{margin:0;font-family:"PT Sans","Helvetica Neue",Helvetica,Arial,sans-serif;font-size:15px;line-height:20px;color:#222;background-color:#fff}a{color:#2c3e50;text-decoration:none}a:hover,a:focus{color:#354b60;text-decoration:underline}img{width:auto\9;height:auto;max-width:100%;vertical-align:middle;border:0;-ms-interpolation-mode:bicubic}.main__greeting{font-family:"PT Sans","Helvetica Neue",Helvetica,Arial,sans-serif}.adjust-bar{-webkit-appearance:none;appearance:none;outline:none;border-radius:30px;width:100%;height:60px;margin:0;display:flex;justify-content:space-between;align-items:center;position:relative}.adjust-bar::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;cursor:pointer;width:60px;height:60px;border:3px solid rgba(51,51,51,0.1);border-radius:30px;box-shadow:0 0 0 4px #fff}.adjust-bar::-moz-range-thumb{box-sizing:border-box;cursor:pointer;width:60px;height:60px;border:3px solid rgba(51,51,51,0.1);border-radius:30px;background:transparent;box-shadow:0 0 0 4px #fff}.adjust-bar::-moz-range-track{background:transparent}.adjust-bar__container_theme_temp{position:relative}.adjust-bar__container_theme_temp::before,.adjust-bar__container_theme_temp::after{color:#fff;font-size:18px;font-weight:700;position:absolute;top:20px;z-index:1;pointer-events:none}.adjust-bar__container_theme_temp::before{content:'–10';left:15px}.adjust-bar__container_theme_temp::after{content:'+30';right:15px}.adjust-bar__container_theme_light{position:relative}.adjust-bar__container_theme_light::before,.adjust-bar__container_theme_light::after{content:'';position:absolute;z-index:1;pointer-events:none}.adjust-bar__container_theme_light::before{top:14px;left:14px;width:30px;height:30px;background:url(assets/adjust-bar_light_from.svg) center center/contain no-repeat}.adjust-bar__container_theme_light::after{top:13px;right:13px;width:34px;height:34px;background:url(assets/adjust-bar_light_to.svg) center center/contain no-repeat}.adjust-bar_theme_temp{background-image:linear-gradient(90deg,#068fff 0%,#ffd800 50%,#f76b1c 100%)}.adjust-bar_theme_light{background-image:linear-gradient(90deg,#ffe682 0%,#ff9e00 100%)}.button{cursor:pointer;display:flex;justify-content:center;align-items:center;background:#fff}.button_color_yellow{background:#ffd93e}.button_size_l{font-size:18px;font-weight:700;height:60px;border-radius:20px}.button:hover{box-shadow:0 2px 6px 0 rgba(255,225,225,0.6)}.button:active{box-shadow:none}.content{width:100%;display:flex;flex-wrap:wrap;justify-content:space-between;padding-top:29px}.content__item{width:100%;margin-bottom:29px;position:relative}.content__item_half{width:49%}.content__item_main{padding-left:40px}.content__item_scenarios{padding-right:40px}.content__item-header{font-size:18px;font-weight:700;margin-bottom:20px}.content__item-header_devices{padding-left:40px;display:inline-block;margin-right:11px}#root{position:absolute;left:-10000px}.devices{display:flex;justify-content:flex-start;overflow-x:hidden;padding:20px 0 6px 40px}.devices__panel{margin-right:15px}.devices::after{content:'';display:inline-block;min-width:25px}.devices__paginator{position:absolute;top:0;right:40px}.filter__select{display:none}.filter__item-label{display:inline-block;font-size:13px;line-height:1;font-weight:700;background:#f7f7f7;min-height:30px;padding:8px 13px;border-radius:15px;margin-right:11px;cursor:pointer}.filter__item-label:hover{background:#ffd93e}.filter__item-radio{display:none}.filter__item-radio:checked + label{background:#ffd93e}.filter__item-radio_kitchen:checked ~ .devices .panel{display:none}.filter__item-radio_kitchen:checked ~ .devices .panel_kitchen{display:flex}.filter__item-radio_room:checked ~ .devices .panel{display:none}.filter__item-radio_room:checked ~ .devices .panel_room{display:flex}.filter__item-radio_lamp:checked ~ .devices .panel{display:none}.filter__item-radio_lamp:checked ~ .devices .panel_lamp{display:flex}.filter__item-radio_cam:checked ~ .devices .panel{display:none}.filter__item-radio_cam:checked ~ .devices .panel_cam{display:flex}.footer{flex:0 0 auto;display:flex;justify-content:flex-start;align-items:center;flex-wrap:wrap;padding-left:40px;width:100%;height:60px;font-size:12px}.footer__link{margin-right:20px}.header{width:100%;height:92px;padding:0 40px;border-bottom:1px solid #f0f0f0;display:flex;align-items:center;background:#fff}.knob{width:220px;height:220px;display:flex;justify-content:center;align-items:center;position:relative}.knob svg{width:220px;height:220px;transform:rotate(90deg)}.knob__indicator{fill:none;stroke:#f5a623;stroke-width:20px;stroke-dasharray:0 629;transform:rotate(29deg)}.knob__indicator-bounds{fill:transparent;stroke:#fff;stroke-width:21px;stroke-dasharray:99 629;transform:rotate(-29deg)}.knob__indicator-bg{fill:rgba(51,51,51,0.7)}.knob__indicator-mask{fill:transparent;stroke:#fff;stroke-width:22px;stroke-dasharray:4 1;transform:rotate(1deg)}.knob__self{fill:#fefefe;filter:url(#knob-shadow);cursor:pointer}.knob__value{font-size:66px;font-weight:700;position:absolute;user-select:none;pointer-events:none}.knob__wrapper{display:flex;justify-content:center;align-items:center;height:80%}.link,.link:active,.link:visited{color:rgba(51,51,51,0.6)}.link{text-decoration:none}.link_active,.link:hover{color:inherit}.logo{display:inline-block;width:108px;height:27px;position:relative;background-image:url('data:image/png;base64,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');background-repeat:no-repeat;background-position:left top;background-size:cover}.logo__ya{display:block;position:absolute;z-index:10;outline:0;height:100%;width:69px;left:0;top:0}.logo__ya-sub{display:block;position:absolute;z-index:5;outline:0;height:100%;width:100%;left:0;top:0}.main{height:331px;border-radius:20px;padding:0 20px 0 25px;display:flex;justify-content:space-between;background:url(assets/sh.webp) center center/cover no-repeat}.main__greeting{margin-top:6px;font-size:27px;font-weight:700}.main__info{width:61.585%;padding-top:20px;padding-left:20px;background:rgba(255,255,255,0.6)}.main__panel{margin-bottom:14px;position:relative}.main__status{margin-top:6px;line-height:16px}.main__upcoming{width:220px;height:100%;overflow-y:scroll}.main__upcoming-wrapper{width:200px;height:100%;overflow:hidden}.main__weather{margin-top:25px}.menu{margin-left:52px}.menu__icon{display:none}.menu__item{margin-right:27px;font-size:16px;font-weight:700}.menu__list{display:flex;justify-content:flex-start;list-style:none;padding:0;margin:0}.modal{display:none;flex-direction:column;justify-content:center;align-items:center;position:fixed;z-index:1;left:0;top:0;width:100%;height:100%;overflow:auto;background:rgba(51,51,51,0.5)}.modal_open{display:flex}.modal_open .modal__content{animation:modal .2s ease forwards}.modal__title{font-size:27px;font-weight:700;margin-bottom:6px}.modal__value{box-sizing:content-box;position:absolute;top:20px;right:20px;font-size:36px;font-weight:700;max-width:62px;height:40px;padding-right:32px}.modal__value_temp{background:url(assets/panel__icon_temp_on.svg) calc(100% + 10px) 0%/contain no-repeat}.modal__value_light{height:45px;padding-right:45px;background:url(assets/panel__icon_light_off.svg) right center/contain no-repeat}.modal__status{margin-bottom:20px}.modal__adjust{margin-top:25px}.modal__button{width:48.5%}.modal__content{max-width:640px;width:100%}.modal__body{position:relative;flex-shrink:0;padding:25px;margin-bottom:15px;border-radius:20px;background:#fff}.modal__controls{width:100%;display:flex;justify-content:space-between;flex-wrap:wrap}@keyframes modal{from{transform:scale(0.2)}}*{box-sizing:border-box}html{height:100%}.page{height:100%;font:14px Arial,sans-serif;color:#333;line-height:1.143;margin:0 auto;padding:0;width:1366px}.page__wrapper{display:flex;flex-direction:column;height:100%}.page__wrapper-content{flex:1 0 auto}.paginator{height:16px;width:47px;display:flex;justify-content:space-between}.paginator div{width:16px}.paginator_hide{display:none}.paginator__arrow{opacity:1;cursor:pointer}.paginator__arrow:hover{opacity:.5}.paginator__arrow:active{opacity:.3}.paginator__arrow_disabled{opacity:.3}.panel{padding:14px;min-height:100px;width:200px;border-radius:20px;display:flex;flex-direction:column;justify-content:space-between;flex-shrink:0;background:#f7f7f7;cursor:pointer;transition:opacity .3s ease-out}.panel:hover{background:#fff;box-shadow:0 2px 6px 0 rgba(197,186,186,0.5)}.panel:active{box-shadow:none}.panel_device{height:120px}.panel_first{margin-top:20px}.panel_last{margin-bottom:20px}.panel__sub{font-size:12px;color:#858585}.panel__title{font-weight:700;margin-bottom:4px}.scenarios{max-height:331px;background:#fff;display:flex;justify-content:flex-start;overflow-x:hidden}.scenarios__page{display:grid;grid-template-columns:repeat(3,200px);grid-template-rows:repeat(3,100px);grid-column-gap:15px;grid-row-gap:15px;justify-content:space-between;margin-right:15px}.scenarios__paginator{position:absolute;top:0;right:40px}.scenarios_hide{display:none}.weather{display:flex}.weather__item{margin-right:18px}.weather__item-title{color:#858585;margin-bottom:4px}.weather__item-temp{font-size:36px;font-weight:700;line-height:1.16;font-family:"PT Sans Narrow","Helvetica Neue",Helvetica,Arial,sans-serif}.weather__item_outside{padding-right:31px}.weather__item_cloud-drizzle{background:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADQAAAA0CAMAAADypuvZAAAAhFBMVEUAAAAzMzM1NTVOTk4zMzMzMzMzMzMzMzMzMzMzMzM0NDQzMzMzMzM3Nzc3NzczMzM0NDQ2NjYzMzMzMzM0NDQ0NDQ1NTU9PT1BQUFAQEAzMzMzMzMzMzM0NDQ1NTU1NTUzMzMzMzMzMzMzMzMzMzMzMzM0NDQ0NDQ0NDQ0NDQ0NDQzMzNqA3FVAAAAK3RSTlMA54gG+vDFb+zLPb9oHRe5RiHzgUI5KA8LBPXWsGtMNODb0JOOeJ5iU6Khe0SjWQAAAc5JREFUSMetVNt2gjAQ5H4TEAFFBMW7bfP//1fJBhPYpCnnME9x45CdnUmMBbDzn6EZ5Kb37Sf/Y+z9kAi4xraWUscmmcA8ajibkEiw+rPJU0CkcDM158shCjgn5TkfTlNkyd7eZFbzYWUKPTkBeBEvlh4rBnJdbNuJx2X/wD5VSzg+07ydbkQu7LwwxwZ/DpzDWaD1jF0+Egqpkb5qrwEbDSmY5fll/diJo4NyKSeVhGMdTTq4qiy8EAH3QVxLfxYqUjHO4l7sulSRknzE8uAsSKo6zVHojDqkRSiB6UqkZTGcSO0E1/teNbyWzZC3lxpa2Ctg9X5d6Soz9Kigqcd7+aMcuW2ZpiXG7gb9fcxtJCSr37CEwpb0uPRPHaGIMImm30SJO3B3PUwiFOIA4d4J8Y+REkSK4HbRh9WEy76dKMGkOy20dB2z6x6NlGBSGrCR96hDAgo74a94EDU3l04lYBHmJDzyZM1jJD6WLichc18uAXTCs4xOQi8M4CYUM5eQoMNKBpyHq2uPkh/HKQoPx6C6mtSRuSKe0JtY19Or9t1apyHgRitpZ/qUY2hTrlcyi4RTPkPJTBJOuR445XrglC8w6OUsxUrmmLs4fgEYwXXxNRCQ6wAAAABJRU5ErkJggg==') 100% 70%/26px no-repeat}.stats{opacity:0}.panel__icon{width:24px;height:24px}.panel__icon_temp_off{background:url(assets/panel__icon_temp_off.svg) center center/contain no-repeat}.panel__icon_temp_on{background:url(assets/panel__icon_temp_on.svg) center center/contain no-repeat}.panel__icon_light_off{background:url(assets/panel__icon_light_off.svg) center center/contain no-repeat}.panel__icon_light_on{background:url(assets/panel__icon_light_on.svg) center center/contain no-repeat}.panel__icon_clock{background:url(assets/panel__icon_clock.svg) center center/contain no-repeat}</style>
 </head>
-
-<!-- ######################################################################
-
-            oooooooooo.                  .o8
-            `888'   `Y8b                "888
-             888     888  .ooooo.   .oooo888  oooo    ooo
-             888oooo888' d88' `88b d88' `888   `88.  .8'
-             888    `88b 888   888 888   888    `88..8'
-             888    .88P 888   888 888   888     `888'
-            o888bood8P'  `Y8bod8P' `Y8bod88P"     .8'
-                                              .o..P'
-                                              `Y8P'
-     ###################################################################### -->
-<body class="page">
-<div id="root"></div>
-
-<div class="page__wrapper">
-    <div class="page__wrapper-content">
-        <header class="header">
-            <div class="logo header__logo">
-                <a href="yandex.ru" class="link logo__ya"></a>
-                <a href="#" class="link logo__ya-sub"></a>
-            </div>
-    <!-- ######################################################################
-
-        ooo        ooooo
-        `88.       .888'
-         888b     d'888   .ooooo.  ooo. .oo.   oooo  oooo
-         8 Y88. .P  888  d88' `88b `888P"Y88b  `888  `888
-         8  `888'   888  888ooo888  888   888   888   888
-         8    Y     888  888    .o  888   888   888   888
-        o8o        o888o `Y8bod8P' o888o o888o  `V88V"V8P'
-
-     ###################################################################### -->
-            <nav class="menu">
-                <ul class="menu__list">
-                    <li class="menu__item">
-                        <a href="#" class="link menu__link link_active">Сводка</a>
-                    </li>
-                    <li class="menu__item">
-                        <a href="#" class="link menu__link">Устройства</a>
-                    </li>
-                    <li class="menu__item">
-                        <a href="#" class="link menu__link">Сценарии</a>
-                    </li>
-                </ul>
-            </nav>
-            <div class="menu__icon">
-                <svg width="16" height="14" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <defs>
-                        <path d="M0 3.326a.995.995 0 0 1 1-.993h14c.552 0 1 .44 1 .993v.681A.995.995 0 0 1 15 5H1c-.552 0-1-.44-1-.993v-.68zM0 8.66a.995.995 0 0 1 1-.993h14c.552 0 1 .44 1 .993v.68a.995.995 0 0 1-1 .993H1c-.552 0-1-.44-1-.993v-.68zm0 5.333A.995.995 0 0 1 1 13h14c.552 0 1 .44 1 .993v.68a.995.995 0 0 1-1 .994H1c-.552 0-1-.44-1-.993v-.681z" id="a"/>
-                    </defs>
-                    <use fill="#333" xlink:href="#a" transform="translate(0 -2)" fill-rule="evenodd"/>
-                </svg>
-            </div>
-        </header>
-            <!-- ######################################################################
-
-              .oooooo.                             .                             .
-             d8P'  `Y8b                          .o8                           .o8
-            888           .ooooo.  ooo. .oo.   .o888oo  .ooooo.  ooo. .oo.   .o888oo
-            888          d88' `88b `888P"Y88b    888   d88' `88b `888P"Y88b    888
-            888          888   888  888   888    888   888ooo888  888   888    888
-            `88b    ooo  888   888  888   888    888 . 888    .o  888   888    888 .
-             `Y8bood8P'  `Y8bod8P' o888o o888o   "888" `Y8bod8P' o888o o888o   "888"
-
-             ###################################################################### -->
-        <main class="content">
-
-            <div class="content__item content__item_half content__item_main">
-                <div class="content__item-header">Главное</div>
-                <section class="main">
-                    <div class="main__info">
-                        <div class="main__greeting">Привет, Геннадий!</div>
-                        <div class="main__status">Двери и окна закрыты, сигнализация включена.</div>
-                        <div class="weather main__weather">
-                            <div class="weather__item">
-                                <div class="weather__item-title">Дома</div>
-                                <div class="weather__item-temp">+23</div>
-                            </div>
-                            <div class="weather__item weather__item_outside weather__item_cloud-drizzle">
-                                <div class="weather__item-title">За окном</div>
-                                <div class="weather__item-temp">+19</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="main__upcoming-wrapper">
-                        <div class="main__upcoming">
-                            <div class="panel main__panel panel_device panel_first">
-                                <div class="panel__icon panel__icon_temp_off"></div>
-                                <div class="panel__text">
-                                    <div class="panel__title">Philips Cooler</div>
-                                    <div class="panel__sub">Начнет охлаждать в 16:30</div>
-                                </div>
-                            </div>
-                            <div class="panel main__panel panel_device">
-                                <div class="panel__icon panel__icon_light_off"></div>
-                                <div class="panel__text">
-                                    <div class="panel__title">Xiaomi Yeelight LED Smart Bulb</div>
-                                    <div class="panel__sub">Включится в 17:00</div>
-                                </div>
-                            </div>
-                            <div class="panel main__panel panel_device panel_out_bot">
-                                <div class="panel__icon panel__icon_light_off"></div>
-                                <div class="panel__text">
-                                    <div class="panel__title">Xiaomi Yeelight LED Smart Bulb</div>
-                                    <div class="panel__sub">Включится в 17:00</div>
-                                </div>
-                            </div>
-                            <div class="panel main__panel panel_device panel_out_bot panel_banner">
-                                
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-
-            <div class="content__item content__item_half content__item_scenarios">
-                <div class="content__item-header">
-                    Избранные сценарии
-                </div>
-                <div class="paginator scenarios__paginator">
-                    <div class="paginator__arrow paginator__arrow_disabled paginator__arrow_left">
-                        <svg
-                                viewBox="0 0 9 16"
-                                width="100%"
-                                height="16px">
-                            <path
-                                    fill="currentColor"
-                                    fill-rule="evenodd"
-                                    d="M8.7 14.3c.4.4.4 1 0 1.4-.4.4-1 .4-1.4 0l-7-7c-.4-.4-.4-1 0-1.4l7-7c.4-.4 1-.4 1.4 0 .4.4.4 1 0 1.4L2.4 8l6.3 6.3z"></path>
-                        </svg>
-                    </div>
-                    <div class="paginator__arrow paginator__arrow_right">
-                        <svg
-                                viewBox="0 0 9 16"
-                                width="100%"
-                                height="16px">
-                            <path
-                                    fill="currentColor"
-                                    fill-rule="evenodd"
-                                    d="M.3 14.3c-.4.4-.4 1.02 0 1.4.38.4 1 .4 1.4 0l7-7c.4-.4.4-1.02 0-1.4l-7-7C1.3-.1.68-.1.3.3c-.4.38-.4 1 0 1.4L6.6 8 .3 14.3z"></path>
-                        </svg>
-                    </div>
-                </div>
-                <section class="scenarios">
-                    <div class="scenarios__page">
-                        <div class="panel scenarios__panel">
-                            <div class="panel__icon panel__icon_light_on"></div>
-                            <div class="panel__text">
-                                <div class="panel__title">Выключить весь свет в доме и во дворе</div>
-                            </div>
-                        </div>
-
-                        <div class="panel scenarios__panel">
-                            <div class="panel__icon panel__icon_clock"></div>
-                            <div class="panel__text">
-                                <div class="panel__title">Я ухожу</div>
-                            </div>
-                        </div>
-
-                        <div class="panel scenarios__panel">
-                            <div class="panel__icon panel__icon_light_on"></div>
-                            <div class="panel__text">
-                                <div class="panel__title">Включить свет в корридоре</div>
-                            </div>
-                        </div>
-
-                        <div class="panel scenarios__panel">
-                            <div class="panel__icon panel__icon_temp_on"></div>
-                            <div class="panel__text">
-                                <div class="panel__title">Набрать горячую ванну</div>
-                                <div class="panel__sub">Начнётся в 18:00</div>
-                            </div>
-                        </div>
-
-                        <div class="panel scenarios__panel">
-                            <div class="panel__icon panel__icon_light_on"></div>
-                            <div class="panel__text">
-                                <div class="panel__title">Выключить весь свет в доме и во дворе</div>
-                            </div>
-                        </div>
-
-                        <div class="panel scenarios__panel">
-                            <div class="panel__icon panel__icon_clock"></div>
-                            <div class="panel__text">
-                                <div class="panel__title">Я ухожу</div>
-                            </div>
-                        </div>
-
-                        <div class="panel scenarios__panel">
-                            <div class="panel__icon panel__icon_light_on"></div>
-                            <div class="panel__text">
-                                <div class="panel__title">Включить свет в корридоре</div>
-                            </div>
-                        </div>
-
-                        <div class="panel scenarios__panel">
-                            <div class="panel__icon panel__icon_temp_on"></div>
-                            <div class="panel__text">
-                                <div class="panel__title">Набрать горячую ванну</div>
-                                <div class="panel__sub">Начнётся в 18:00</div>
-                            </div>
-                        </div>
-
-                        <div class="panel scenarios__panel">
-                            <div class="panel__icon panel__icon_light_on"></div>
-                            <div class="panel__text">
-                                <div class="panel__title">Выключить весь свет в доме и во дворе</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="scenarios__page">
-                        <div class="panel scenarios__panel">
-                            <div class="panel__icon panel__icon_light_on"></div>
-                            <div class="panel__text">
-                                <div class="panel__title">Включить свет в корридоре</div>
-                            </div>
-                        </div>
-                    </div>
-
-                </section>
-            </div>
-
-            <div class="content__item content__item_devices">
-        <span class="content__item-header content__item-header_devices">
-          Избранные устройства
-        </span>
-
-                <div class="filter__select">
-                    <button class="filter__select-button" type="button">
-                        <span class="button__text">Все</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="11" height="6">
-                            <path d="M10.3 0L5.5 4.7.7 0 0 .7 5.5 6 11 .7z"/>
-                        </svg>
-                    </button>
-                    <div class="filter__select-popup" aria-hidden="true">
-                        <div class="filter__select-menu">
-                            <div class="filter__select-item filter__select-item_checked" data-group="all">Все</div>
-                            <div class="filter__select-item" data-group="kitchen">Кухня</div>
-                            <div class="filter__select-item" data-group="room">Зал</div>
-                            <div class="filter__select-item" data-group="lamp">Лампочки</div>
-                            <div class="filter__select-item" data-group="cam">Камеры</div>
-                        </div>
-                    </div>
-                </div>
-
-                <input class="filter__item-radio filter__item_devices filter__item-radio_all" type="radio" name="filter" id="all" checked>
-                <label class="filter__item-label filter__item_devices" for="all">Все</label>
-                <input class="filter__item-radio filter__item_devices filter__item-radio_kitchen" type="radio" name="filter" id="kitchen">
-                <label class="filter__item-label filter__item_devices" for="kitchen">Кухня</label>
-                <input class="filter__item-radio filter__item_devices filter__item-radio_room" type="radio" name="filter" id="room">
-                <label class="filter__item-label filter__item_devices" for="room">Зал</label>
-                <input class="filter__item-radio filter__item_devices filter__item-radio_lamp" type="radio" name="filter" id="lamp">
-                <label class="filter__item-label filter__item_devices" for="lamp">Лампочки</label>
-                <input class="filter__item-radio filter__item_devices filter__item-radio_cam" type="radio" name="filter" id="cam">
-                <label class="filter__item-label filter__item_devices" for="cam">Камеры</label>
-
-                <div class="paginator devices__paginator">
-                    <div class="paginator__arrow paginator__arrow_disabled paginator__arrow_left">
-                        <svg
-                                viewBox="0 0 9 16"
-                                width="100%"
-                                height="16px">
-                            <path
-                                    fill="currentColor"
-                                    fill-rule="evenodd"
-                                    d="M8.7 14.3c.4.4.4 1 0 1.4-.4.4-1 .4-1.4 0l-7-7c-.4-.4-.4-1 0-1.4l7-7c.4-.4 1-.4 1.4 0 .4.4.4 1 0 1.4L2.4 8l6.3 6.3z"></path>
-                        </svg>
-                    </div>
-
-                    <div class="paginator__arrow paginator__arrow_right">
-                        <svg
-                                viewBox="0 0 9 16"
-                                width="100%"
-                                height="16px">
-                            <path
-                                    fill="currentColor"
-                                    fill-rule="evenodd"
-                                    d="M.3 14.3c-.4.4-.4 1.02 0 1.4.38.4 1 .4 1.4 0l7-7c.4-.4.4-1.02 0-1.4l-7-7C1.3-.1.68-.1.3.3c-.4.38-.4 1 0 1.4L6.6 8 .3 14.3z"></path>
-                        </svg>
-                    </div>
-                </div>
-
-                <section class="devices">
-                    <div class="panel panel_device devices__panel panel_room panel_floor">
-                        <div class="panel__icon panel__icon_light_on"></div>
-                        <div class="panel__text">
-                            <div class="panel__title">Xiaomi Warm Floor</div>
-                            <div class="panel__sub">Включено</div>
-                        </div>
-                    </div>
-                    <div class="panel panel_device devices__panel panel_lamp">
-                        <div class="panel__icon panel__icon_light_on"></div>
-                        <div class="panel__text">
-                            <div class="panel__title">Xiaomi Yeelight LED Smart Bulb</div>
-                            <div class="panel__sub">Включено</div>
-                        </div>
-                    </div>
-                    <div class="panel panel_device devices__panel panel_cam">
-                        <div class="panel__icon panel__icon_light_off"></div>
-                        <div class="panel__text">
-                            <div class="panel__title">D-Link Omna 180 Cam</div>
-                            <div class="panel__sub">Включится в 17:00</div>
-                        </div>
-                    </div>
-                    <div class="panel panel_device devices__panel panel_room panel_temp">
-                        <div class="panel__icon panel__icon_temp_off"></div>
-                        <div class="panel__text">
-                            <div class="panel__title">Elgato Eve Degree Connected</div>
-                            <div class="panel__sub">Включится в 17:00</div>
-                        </div>
-                    </div>
-                    <div class="panel panel_device devices__panel panel_lamp">
-                        <div class="panel__icon panel__icon_light_off"></div>
-                        <div class="panel__text">
-                            <div class="panel__title">LIFX Mini Day & Dusk A60 E27</div>
-                            <div class="panel__sub">Включится в 17:00</div>
-                        </div>
-                    </div>
-                    <div class="panel panel_device devices__panel panel_room">
-                        <div class="panel__icon panel__icon_light_on"></div>
-                        <div class="panel__text">
-                            <div class="panel__title">Xiaomi Mi Air Purifier 2S</div>
-                            <div class="panel__sub">Включено</div>
-                        </div>
-                    </div>
-                    <div class="panel panel_device devices__panel panel_lamp">
-                        <div class="panel__icon panel__icon_light_off"></div>
-                        <div class="panel__text">
-                            <div class="panel__title">Philips Zhirui</div>
-                            <div class="panel__sub">Выключено</div>
-                        </div>
-                    </div>
-                    <div class="panel panel_device devices__panel panel_kitchen">
-                        <div class="panel__icon panel__icon_light_on"></div>
-                        <div class="panel__text">
-                            <div class="panel__title">Philips Purifier</div>
-                            <div class="panel__sub">Включено</div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </main>
-    </div>
-
-    <footer class="footer">
-        <a href="#" class="link footer__link">Помощь</a>
-        <a href="#" class="link footer__link">Обратная связь</a>
-        <a href="#" class="link footer__link">Разработчикам</a>
-        <a href="#" class="link footer__link">Условия использования</a>
-    </footer>
+<body class=page>
+<div id=root></div>
+<div class=page__wrapper>
+<div class=page__wrapper-content>
+<header class=header>
+<div class="logo header__logo">
+<a href=yandex.ru class="link logo__ya"></a>
+<a href="#" class="link logo__ya-sub"></a>
 </div>
-
+<nav class=menu>
+<ul class=menu__list>
+<li class=menu__item>
+<a href="#" class="link menu__link link_active">Сводка</a>
+</li>
+<li class=menu__item>
+<a href="#" class="link menu__link">Устройства</a>
+</li>
+<li class=menu__item>
+<a href="#" class="link menu__link">Сценарии</a>
+</li>
+</ul>
+</nav>
+<div class=menu__icon>
+<svg width=16 height=14 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<defs>
+<path d="M0 3.326a.995.995 0 0 1 1-.993h14c.552 0 1 .44 1 .993v.681A.995.995 0 0 1 15 5H1c-.552 0-1-.44-1-.993v-.68zM0 8.66a.995.995 0 0 1 1-.993h14c.552 0 1 .44 1 .993v.68a.995.995 0 0 1-1 .993H1c-.552 0-1-.44-1-.993v-.68zm0 5.333A.995.995 0 0 1 1 13h14c.552 0 1 .44 1 .993v.68a.995.995 0 0 1-1 .994H1c-.552 0-1-.44-1-.993v-.681z" id=a />
+</defs>
+<use fill="#333" xlink:href="#a" transform="translate(0 -2)" fill-rule=evenodd />
+</svg>
+</div>
+</header>
+<main class=content>
+<div class="content__item content__item_half content__item_main">
+<div class=content__item-header>Главное</div>
+<section class=main>
+<div class=main__info>
+<div class=main__greeting>Привет, Геннадий!</div>
+<div class=main__status>Двери и окна закрыты, сигнализация включена.</div>
+<div class="weather main__weather">
+<div class=weather__item>
+<div class=weather__item-title>Дома</div>
+<div class=weather__item-temp>+23</div>
+</div>
+<div class="weather__item weather__item_outside weather__item_cloud-drizzle">
+<div class=weather__item-title>За окном</div>
+<div class=weather__item-temp>+19</div>
+</div>
+</div>
+</div>
+<div class=main__upcoming-wrapper>
+<div class=main__upcoming>
+<div class="panel main__panel panel_device panel_first">
+<div class="panel__icon panel__icon_temp_off"></div>
+<div class=panel__text>
+<div class=panel__title>Philips Cooler</div>
+<div class=panel__sub>Начнет охлаждать в 16:30</div>
+</div>
+</div>
+<div class="panel main__panel panel_device">
+<div class="panel__icon panel__icon_light_off"></div>
+<div class=panel__text>
+<div class=panel__title>Xiaomi Yeelight LED Smart Bulb</div>
+<div class=panel__sub>Включится в 17:00</div>
+</div>
+</div>
+<div class="panel main__panel panel_device panel_out_bot">
+<div class="panel__icon panel__icon_light_off"></div>
+<div class=panel__text>
+<div class=panel__title>Xiaomi Yeelight LED Smart Bulb</div>
+<div class=panel__sub>Включится в 17:00</div>
+</div>
+</div>
+<div class="panel main__panel panel_device panel_out_bot panel_banner">
+</div>
+</div>
+</div>
+</section>
+</div>
+<div class="content__item content__item_half content__item_scenarios">
+<div class=content__item-header>
+Избранные сценарии
+</div>
+<div class="paginator scenarios__paginator">
+<div class="paginator__arrow paginator__arrow_disabled paginator__arrow_left">
+<svg viewBox="0 0 9 16" width="100%" height=16px>
+<path fill=currentColor fill-rule=evenodd d="M8.7 14.3c.4.4.4 1 0 1.4-.4.4-1 .4-1.4 0l-7-7c-.4-.4-.4-1 0-1.4l7-7c.4-.4 1-.4 1.4 0 .4.4.4 1 0 1.4L2.4 8l6.3 6.3z"></path>
+</svg>
+</div>
+<div class="paginator__arrow paginator__arrow_right">
+<svg viewBox="0 0 9 16" width="100%" height=16px>
+<path fill=currentColor fill-rule=evenodd d="M.3 14.3c-.4.4-.4 1.02 0 1.4.38.4 1 .4 1.4 0l7-7c.4-.4.4-1.02 0-1.4l-7-7C1.3-.1.68-.1.3.3c-.4.38-.4 1 0 1.4L6.6 8 .3 14.3z"></path>
+</svg>
+</div>
+</div>
+<section class=scenarios>
+<div class=scenarios__page>
+<div class="panel scenarios__panel">
+<div class="panel__icon panel__icon_light_on"></div>
+<div class=panel__text>
+<div class=panel__title>Выключить весь свет в доме и во дворе</div>
+</div>
+</div>
+<div class="panel scenarios__panel">
+<div class="panel__icon panel__icon_clock"></div>
+<div class=panel__text>
+<div class=panel__title>Я ухожу</div>
+</div>
+</div>
+<div class="panel scenarios__panel">
+<div class="panel__icon panel__icon_light_on"></div>
+<div class=panel__text>
+<div class=panel__title>Включить свет в корридоре</div>
+</div>
+</div>
+<div class="panel scenarios__panel">
+<div class="panel__icon panel__icon_temp_on"></div>
+<div class=panel__text>
+<div class=panel__title>Набрать горячую ванну</div>
+<div class=panel__sub>Начнётся в 18:00</div>
+</div>
+</div>
+<div class="panel scenarios__panel">
+<div class="panel__icon panel__icon_light_on"></div>
+<div class=panel__text>
+<div class=panel__title>Выключить весь свет в доме и во дворе</div>
+</div>
+</div>
+<div class="panel scenarios__panel">
+<div class="panel__icon panel__icon_clock"></div>
+<div class=panel__text>
+<div class=panel__title>Я ухожу</div>
+</div>
+</div>
+<div class="panel scenarios__panel">
+<div class="panel__icon panel__icon_light_on"></div>
+<div class=panel__text>
+<div class=panel__title>Включить свет в корридоре</div>
+</div>
+</div>
+<div class="panel scenarios__panel">
+<div class="panel__icon panel__icon_temp_on"></div>
+<div class=panel__text>
+<div class=panel__title>Набрать горячую ванну</div>
+<div class=panel__sub>Начнётся в 18:00</div>
+</div>
+</div>
+<div class="panel scenarios__panel">
+<div class="panel__icon panel__icon_light_on"></div>
+<div class=panel__text>
+<div class=panel__title>Выключить весь свет в доме и во дворе</div>
+</div>
+</div>
+</div>
+<div class=scenarios__page>
+<div class="panel scenarios__panel">
+<div class="panel__icon panel__icon_light_on"></div>
+<div class=panel__text>
+<div class=panel__title>Включить свет в корридоре</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<div class="content__item content__item_devices">
+<span class="content__item-header content__item-header_devices">
+Избранные устройства
+</span>
+<div class=filter__select>
+<button class=filter__select-button type=button>
+<span class=button__text>Все</span>
+<svg xmlns="http://www.w3.org/2000/svg" width=11 height=6>
+<path d="M10.3 0L5.5 4.7.7 0 0 .7 5.5 6 11 .7z"/>
+</svg>
+</button>
+<div class=filter__select-popup aria-hidden=true>
+<div class=filter__select-menu>
+<div class="filter__select-item filter__select-item_checked" data-group=all>Все</div>
+<div class=filter__select-item data-group=kitchen>Кухня</div>
+<div class=filter__select-item data-group=room>Зал</div>
+<div class=filter__select-item data-group=lamp>Лампочки</div>
+<div class=filter__select-item data-group=cam>Камеры</div>
+</div>
+</div>
+</div>
+<input class="filter__item-radio filter__item_devices filter__item-radio_all" type=radio name=filter id=all checked>
+<label class="filter__item-label filter__item_devices" for=all>Все</label>
+<input class="filter__item-radio filter__item_devices filter__item-radio_kitchen" type=radio name=filter id=kitchen>
+<label class="filter__item-label filter__item_devices" for=kitchen>Кухня</label>
+<input class="filter__item-radio filter__item_devices filter__item-radio_room" type=radio name=filter id=room>
+<label class="filter__item-label filter__item_devices" for=room>Зал</label>
+<input class="filter__item-radio filter__item_devices filter__item-radio_lamp" type=radio name=filter id=lamp>
+<label class="filter__item-label filter__item_devices" for=lamp>Лампочки</label>
+<input class="filter__item-radio filter__item_devices filter__item-radio_cam" type=radio name=filter id=cam>
+<label class="filter__item-label filter__item_devices" for=cam>Камеры</label>
+<div class="paginator devices__paginator">
+<div class="paginator__arrow paginator__arrow_disabled paginator__arrow_left">
+<svg viewBox="0 0 9 16" width="100%" height=16px>
+<path fill=currentColor fill-rule=evenodd d="M8.7 14.3c.4.4.4 1 0 1.4-.4.4-1 .4-1.4 0l-7-7c-.4-.4-.4-1 0-1.4l7-7c.4-.4 1-.4 1.4 0 .4.4.4 1 0 1.4L2.4 8l6.3 6.3z"></path>
+</svg>
+</div>
+<div class="paginator__arrow paginator__arrow_right">
+<svg viewBox="0 0 9 16" width="100%" height=16px>
+<path fill=currentColor fill-rule=evenodd d="M.3 14.3c-.4.4-.4 1.02 0 1.4.38.4 1 .4 1.4 0l7-7c.4-.4.4-1.02 0-1.4l-7-7C1.3-.1.68-.1.3.3c-.4.38-.4 1 0 1.4L6.6 8 .3 14.3z"></path>
+</svg>
+</div>
+</div>
+<section class=devices>
+<div class="panel panel_device devices__panel panel_room panel_floor">
+<div class="panel__icon panel__icon_light_on"></div>
+<div class=panel__text>
+<div class=panel__title>Xiaomi Warm Floor</div>
+<div class=panel__sub>Включено</div>
+</div>
+</div>
+<div class="panel panel_device devices__panel panel_lamp">
+<div class="panel__icon panel__icon_light_on"></div>
+<div class=panel__text>
+<div class=panel__title>Xiaomi Yeelight LED Smart Bulb</div>
+<div class=panel__sub>Включено</div>
+</div>
+</div>
+<div class="panel panel_device devices__panel panel_cam">
+<div class="panel__icon panel__icon_light_off"></div>
+<div class=panel__text>
+<div class=panel__title>D-Link Omna 180 Cam</div>
+<div class=panel__sub>Включится в 17:00</div>
+</div>
+</div>
+<div class="panel panel_device devices__panel panel_room panel_temp">
+<div class="panel__icon panel__icon_temp_off"></div>
+<div class=panel__text>
+<div class=panel__title>Elgato Eve Degree Connected</div>
+<div class=panel__sub>Включится в 17:00</div>
+</div>
+</div>
+<div class="panel panel_device devices__panel panel_lamp">
+<div class="panel__icon panel__icon_light_off"></div>
+<div class=panel__text>
+<div class=panel__title>LIFX Mini Day & Dusk A60 E27</div>
+<div class=panel__sub>Включится в 17:00</div>
+</div>
+</div>
+<div class="panel panel_device devices__panel panel_room">
+<div class="panel__icon panel__icon_light_on"></div>
+<div class=panel__text>
+<div class=panel__title>Xiaomi Mi Air Purifier 2S</div>
+<div class=panel__sub>Включено</div>
+</div>
+</div>
+<div class="panel panel_device devices__panel panel_lamp">
+<div class="panel__icon panel__icon_light_off"></div>
+<div class=panel__text>
+<div class=panel__title>Philips Zhirui</div>
+<div class=panel__sub>Выключено</div>
+</div>
+</div>
+<div class="panel panel_device devices__panel panel_kitchen">
+<div class="panel__icon panel__icon_light_on"></div>
+<div class=panel__text>
+<div class=panel__title>Philips Purifier</div>
+<div class=panel__sub>Включено</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+</div>
+<footer class=footer>
+<a href="#" class="link footer__link">Помощь</a>
+<a href="#" class="link footer__link">Обратная связь</a>
+<a href="#" class="link footer__link">Разработчикам</a>
+<a href="#" class="link footer__link">Условия использования</a>
+</footer>
+</div>
 <div class="modal modal_temp">
-    <div class="modal__content">
-
-        <div class="modal__body">
-            <div class="modal__title">Elgato Eve Degree Connected</div>
-            <div class="modal__value modal__value_temp">+23</div>
-            <div class="modal__status">Включено</div>
-            <div class="modal__filter">
-                <div class="filter__item-label modal__filter-item_temp" id="manual">Вручную</div>
-                <div class="filter__item-label modal__filter-item_temp" id="cold">Холодно</div>
-                <div class="filter__item-label modal__filter-item_temp" id="warm">Тепло</div>
-                <div class="filter__item-label modal__filter-item_temp" id="hot">Жарко</div>
-            </div>
-            <div class="adjust-bar__container adjust-bar__container_theme_temp modal__adjust">
-                <input class="adjust-bar adjust-bar_theme_temp" type="range" name="lightRange" id="lightRange" value="23" min="-10" max="30" orient="vertical">
-            </div>
-        </div>
-
-        <div class="modal__controls">
-            <div class="button button_size_l button_color_yellow modal__button">Применить</div>
-            <div class="button button_size_l modal__button modal_close">Закрыть</div>
-        </div>
-    </div>
-
+<div class=modal__content>
+<div class=modal__body>
+<div class=modal__title>Elgato Eve Degree Connected</div>
+<div class="modal__value modal__value_temp">+23</div>
+<div class=modal__status>Включено</div>
+<div class=modal__filter>
+<div class="filter__item-label modal__filter-item_temp" id=manual>Вручную</div>
+<div class="filter__item-label modal__filter-item_temp" id=cold>Холодно</div>
+<div class="filter__item-label modal__filter-item_temp" id=warm>Тепло</div>
+<div class="filter__item-label modal__filter-item_temp" id=hot>Жарко</div>
 </div>
-
+<div class="adjust-bar__container adjust-bar__container_theme_temp modal__adjust">
+<input class="adjust-bar adjust-bar_theme_temp" type=range name=lightRange id=lightRange value=23 min=-10 max=30 orient=vertical>
+</div>
+</div>
+<div class=modal__controls>
+<div class="button button_size_l button_color_yellow modal__button">Применить</div>
+<div class="button button_size_l modal__button modal_close">Закрыть</div>
+</div>
+</div>
+</div>
 <div class="modal modal_light">
-    <div class="modal__content">
-
-        <div class="modal__body">
-            <div class="modal__title">Xiaomi Yeelight LED Smart Bulb</div>
-            <div class="modal__value modal__value_light"></div>
-            <div class="modal__status">Включено</div>
-            <div class="modal__filter">
-                <div class="filter__item-label modal__filter-item" id="manual">Вручную</div>
-                <div class="filter__item-label modal__filter-item" id="day">Дневной свет</div>
-                <div class="filter__item-label modal__filter-item" id="evening">Вечерний свет</div>
-                <div class="filter__item-label modal__filter-item" id="dawn">Рассвет</div>
-            </div>
-            <div class="adjust-bar__container adjust-bar__container_theme_light modal__adjust">
-                <input class="adjust-bar adjust-bar_theme_light" type="range" name="tempRange" id="lightRange" value="25" min="0" max="50" orient="vertical">
-            </div>
-        </div>
-
-        <div class="modal__controls">
-            <div class="button button_size_l button_color_yellow modal__button">Применить</div>
-            <div class="button button_size_l modal__button modal_close">Закрыть</div>
-        </div>
-    </div>
+<div class=modal__content>
+<div class=modal__body>
+<div class=modal__title>Xiaomi Yeelight LED Smart Bulb</div>
+<div class="modal__value modal__value_light"></div>
+<div class=modal__status>Включено</div>
+<div class=modal__filter>
+<div class="filter__item-label modal__filter-item" id=manual>Вручную</div>
+<div class="filter__item-label modal__filter-item" id=day>Дневной свет</div>
+<div class="filter__item-label modal__filter-item" id=evening>Вечерний свет</div>
+<div class="filter__item-label modal__filter-item" id=dawn>Рассвет</div>
 </div>
-<div class="stats">
+<div class="adjust-bar__container adjust-bar__container_theme_light modal__adjust">
+<input class="adjust-bar adjust-bar_theme_light" type=range name=tempRange id=lightRange value=25 min=0 max=50 orient=vertical>
 </div>
-
+</div>
+<div class=modal__controls>
+<div class="button button_size_l button_color_yellow modal__button">Применить</div>
+<div class="button button_size_l modal__button modal_close">Закрыть</div>
+</div>
+</div>
+</div>
+<div class=stats>
+</div>
 <div class="modal modal_knob">
-    <div class="modal__content">
-
-        <div class="modal__body">
-            <div class="modal__title">Xiaomi Warm Floor</div>
-            <div class="modal__value modal__value_temp">+23</div>
-            <div class="modal__status">Включено</div>
-            <div class="knob__wrapper">
-                <div class="knob">
-                    <svg viewBox="-110 -110 220 220" id="foobar">
-                        <filter id="knob-shadow">
-                            <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
-                            <feOffset dx="2" dy="0" result="offsetblur"/>
-                            <feFlood flood-color="rgba(134,121,71,0.45)"/>
-                            <feComposite in2="offsetblur" operator="in"/>
-                            <feMerge>
-                                <feMergeNode/>
-                                <feMergeNode in="SourceGraphic"/>
-                            </feMerge>
-                        </filter>
-                        <g class="knob-container">
-                            <circle class="knob_center" cx="0" cy="0"/>
-                            <circle class="knob__indicator-bg" r="110" cx="0" cy="0" />
-                            <circle class="knob__indicator" r="100" cx="0" cy="0"/>
-                            <circle class="knob__indicator-mask" r="100" cx="0" cy="0"/>
-                            <circle class="knob__indicator-bounds" r="100" cx="0" cy="0"/>
-                            <circle class="knob__self" r="89" cx="0" cy="0" />
-                            <!-- <polygon class="knob__arrow" points="5,-90 0,-85 10,-85" /> -->
-                            <polygon class="knob__arrow" points="-90,0 -85,5 -85,-5" />
-                        </g>
-                    </svg>
-                    <div class="knob__value">+23</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="modal__controls">
-            <div class="button button_size_l button_color_yellow modal__button">Применить</div>
-            <div class="button button_size_l modal__button modal_close">Закрыть</div>
-        </div>
-    </div>
-
+<div class=modal__content>
+<div class=modal__body>
+<div class=modal__title>Xiaomi Warm Floor</div>
+<div class="modal__value modal__value_temp">+23</div>
+<div class=modal__status>Включено</div>
+<div class=knob__wrapper>
+<div class=knob>
+<svg viewBox="-110 -110 220 220" id=foobar>
+<filter id=knob-shadow>
+<feGaussianBlur in=SourceAlpha stdDeviation=2 />
+<feOffset dx=2 dy=0 result=offsetblur />
+<feFlood flood-color="rgba(134,121,71,0.45)"/>
+<feComposite in2=offsetblur operator=in />
+<feMerge>
+<feMergeNode/>
+<feMergeNode in=SourceGraphic />
+</feMerge>
+</filter>
+<g class=knob-container>
+<circle class=knob_center cx=0 cy=0 />
+<circle class=knob__indicator-bg r=110 cx=0 cy=0 />
+<circle class=knob__indicator r=100 cx=0 cy=0 />
+<circle class=knob__indicator-mask r=100 cx=0 cy=0 />
+<circle class=knob__indicator-bounds r=100 cx=0 cy=0 />
+<circle class=knob__self r=89 cx=0 cy=0 />
+<polygon class=knob__arrow points="-90,0 -85,5 -85,-5"/>
+</g>
+</svg>
+<div class=knob__value>+23</div>
 </div>
-
-
-<script>
-const output=document.querySelector(".modal__value"),rangeSLider=document.querySelector(".adjust-bar.adjust-bar_theme_temp");rangeSLider.oninput=function(){output.innerHTML=this.value>0?"+"+this.value:this.value};const arrowLeftDevs=document.querySelector(".devices__paginator .paginator__arrow_left"),arrowRightDevs=document.querySelector(".devices__paginator .paginator__arrow_right"),panelCountDevs=document.querySelectorAll(".devices__panel").length,devices=document.querySelector(".devices"),pagiantorDevs=document.querySelector(".devices__paginator");let curValue,curRotate,currentPageDevs=1;pagiantorDevs.classList.toggle("paginator_hide",panelCountDevs<7),arrowRightDevs.addEventListener("click",function(){currentPageDevs+=1,arrowLeftDevs.classList.toggle("paginator__arrow_disabled",1===currentPageDevs),devices.scroll({top:0,left:1366,behavior:"smooth"})}),arrowLeftDevs.addEventListener("click",function(){currentPageDevs>1&&(currentPageDevs-=1,arrowLeftDevs.classList.toggle("paginator__arrow_disabled",1===currentPageDevs),devices.scroll({top:0,left:-1366,behavior:"smooth"}))});let maxRotate=.42,minRotate=-.42;const MIN_VALUE=26,MAX_VALUE=35,INDICATOR_OFFSET=265,rotateToValue=function(e){return Math.floor(Math.abs(360*e*1.73+INDICATOR_OFFSET)/53+26)};function setRotate(e){e>maxRotate?e=maxRotate:e<minRotate&&(e=minRotate),curRotate=e,curValue=rotateToValue(e),document.querySelector(".modal_knob .modal__value").innerHTML="+"+curValue,document.querySelector(".knob__value").innerHTML="+"+curValue,document.querySelector(".knob__indicator").style.strokeDasharray=360*curRotate*1.73+INDICATOR_OFFSET+" 629",document.querySelector(".knob__arrow").style.transform="rotate("+360*curRotate+"deg)"}function getPosition(e){const t=e.getBoundingClientRect();return[t.left+(t.right-t.left)/2,t.top+(t.bottom-t.top)/2]}function getMouseAngle(e,t){const o=getPosition(t);let r,n=[e.clientX,e.clientY];return e.targetTouches&&e.targetTouches[0]&&(n=[e.targetTouches[0].clientX,e.targetTouches[0].clientY]),r=Math.atan2(n[1]-o[1],n[0]-o[0]),r+=Math.PI/2}let knobDragged,prevAngleRad=null,prevRotate=null;function startDragging(e){e.preventDefault(),e.stopPropagation();const t=getMouseAngle(e,document.querySelector(".knob_center"));knobDragged=!0,prevAngleRad=t,prevRotate=curRotate}function stopDragging(e){knobDragged=!1}function dragRotate(e){if(!knobDragged)return;const t=prevAngleRad;let o=getMouseAngle(e,document.querySelector(".knob_center")),r=o-t;prevAngleRad=o,r<0&&(r+=2*Math.PI),r>Math.PI&&(r-=2*Math.PI);const n=r/Math.PI/2,a=prevRotate+n;prevRotate=a,setRotate(a)}function setEvtListeners(){const e=document.querySelector(".knob-container");e.addEventListener("mousedown",startDragging),document.addEventListener("mouseup",stopDragging),document.addEventListener("mousemove",dragRotate),e.addEventListener("touchstart",startDragging),document.addEventListener("touchend",stopDragging),document.addEventListener("touchmove",dragRotate)}setEvtListeners(),setRotate(0),document.querySelectorAll(".modal_close").forEach(e=>{e.onclick=function(){document.querySelectorAll(".modal").forEach(e=>{e.classList.toggle("modal_open",!1),document.querySelector("body").style.overflow="auto"})}});const TEMPS={manual:-10,cold:0,warm:23,hot:30};document.querySelectorAll(".modal__filter-item_temp").forEach(e=>{e.onclick=function(){document.querySelector(".adjust-bar_theme_temp").value=TEMPS[this.id],document.querySelector(".modal_temp .modal__value").innerHTML=TEMPS[this.id]>0?"+"+TEMPS[this.id]:TEMPS[this.id]}});const showModal=function(e){document.querySelector(e).classList.toggle("modal_open",!0),document.querySelector("body").style.overflow="hidden"};document.querySelectorAll(".panel_temp").forEach(e=>{e.onclick=function(){showModal(".modal_temp")}}),document.querySelectorAll(".panel_lamp").forEach(e=>{e.onclick=function(){showModal(".modal_light")}}),document.querySelectorAll(".panel_floor").forEach(e=>{e.onclick=function(){showModal(".modal_knob")}});const arrowLeftScens=document.querySelector(".scenarios__paginator .paginator__arrow_left"),arrowRightScens=document.querySelector(".scenarios__paginator .paginator__arrow_right"),panelCountScens=document.querySelectorAll(".scenarios__panel").length,pageCountScens=document.querySelectorAll(".scenarios__page").length,scenarios=document.querySelector(".scenarios"),pagiantorScens=document.querySelector(".scenarios__paginator");let currentPage=1;pagiantorScens.classList.toggle("paginator_hide",panelCountScens<=9),arrowRightScens.addEventListener("click",function(){currentPage<pageCountScens&&(currentPage+=1,arrowRightScens.classList.toggle("paginator__arrow_disabled",currentPage===pageCountScens),arrowLeftScens.classList.toggle("paginator__arrow_disabled",1===currentPage),scenarios.scroll({top:0,left:645,behavior:"smooth"}))}),arrowLeftScens.addEventListener("click",function(){currentPage>1&&(currentPage-=1,arrowRightScens.classList.toggle("paginator__arrow_disabled",currentPage===pageCountScens),arrowLeftScens.classList.toggle("paginator__arrow_disabled",1===currentPage),scenarios.scroll({top:0,left:-645,behavior:"smooth"}))});const selectButton=document.querySelector(".filter__select-button"),selectButtonText=document.querySelector(".filter__select-button .button__text"),selectOptions=document.querySelectorAll(".filter__select-item"),popup=document.querySelector(".filter__select-popup");selectButton.addEventListener("click",function(){popup.classList.toggle("filter__select-popup_open")});let widths="";window.addEventListener("scroll",function(){widths+=document.querySelectorAll("body")[0].offsetWidth,document.querySelector(".stats").innerHTML=widths}),selectOptions.forEach(e=>{e.addEventListener("click",function(e){document.querySelector("#"+e.target.dataset.group).checked=!0,selectOptions.forEach(e=>e.classList.toggle("filter__select-item_checked",!1)),e.target.classList.toggle("filter__select-item_checked",!0),popup.classList.toggle("filter__select-popup_open",!1),selectButtonText.innerText=e.target.innerText})}),document.querySelector(".menu__icon").addEventListener("click",function(){document.querySelector(".menu").classList.toggle("menu_open")}),window.onload=function(){document.querySelector(".panel_banner").innerHTML='<a target="_blank" href="http://ya.ru"><img src="assets/banner.jpg" border="0"></a>'};
-</script>
-
+</div>
+</div>
+<div class=modal__controls>
+<div class="button button_size_l button_color_yellow modal__button">Применить</div>
+<div class="button button_size_l modal__button modal_close">Закрыть</div>
+</div>
+</div>
+</div>
+<script>const output=document.querySelector(".modal__value"),rangeSLider=document.querySelector(".adjust-bar.adjust-bar_theme_temp");rangeSLider.oninput=function(){output.innerHTML=this.value>0?"+"+this.value:this.value};const arrowLeftDevs=document.querySelector(".devices__paginator .paginator__arrow_left"),arrowRightDevs=document.querySelector(".devices__paginator .paginator__arrow_right"),panelCountDevs=document.querySelectorAll(".devices__panel").length,devices=document.querySelector(".devices"),pagiantorDevs=document.querySelector(".devices__paginator");let curValue,curRotate,currentPageDevs=1;pagiantorDevs.classList.toggle("paginator_hide",panelCountDevs<7),arrowRightDevs.addEventListener("click",function(){currentPageDevs+=1,arrowLeftDevs.classList.toggle("paginator__arrow_disabled",1===currentPageDevs),devices.scroll({top:0,left:1366,behavior:"smooth"})}),arrowLeftDevs.addEventListener("click",function(){currentPageDevs>1&&(currentPageDevs-=1,arrowLeftDevs.classList.toggle("paginator__arrow_disabled",1===currentPageDevs),devices.scroll({top:0,left:-1366,behavior:"smooth"}))});let maxRotate=.42,minRotate=-.42;const MIN_VALUE=26,MAX_VALUE=35,INDICATOR_OFFSET=265,rotateToValue=function(e){return Math.floor(Math.abs(360*e*1.73+INDICATOR_OFFSET)/53+26)};function setRotate(e){e>maxRotate?e=maxRotate:e<minRotate&&(e=minRotate),curRotate=e,curValue=rotateToValue(e),document.querySelector(".modal_knob .modal__value").innerHTML="+"+curValue,document.querySelector(".knob__value").innerHTML="+"+curValue,document.querySelector(".knob__indicator").style.strokeDasharray=360*curRotate*1.73+INDICATOR_OFFSET+" 629",document.querySelector(".knob__arrow").style.transform="rotate("+360*curRotate+"deg)"}function getPosition(e){const t=e.getBoundingClientRect();return[t.left+(t.right-t.left)/2,t.top+(t.bottom-t.top)/2]}function getMouseAngle(e,t){const o=getPosition(t);let r,n=[e.clientX,e.clientY];return e.targetTouches&&e.targetTouches[0]&&(n=[e.targetTouches[0].clientX,e.targetTouches[0].clientY]),r=Math.atan2(n[1]-o[1],n[0]-o[0]),r+=Math.PI/2}let knobDragged,prevAngleRad=null,prevRotate=null;function startDragging(e){e.preventDefault(),e.stopPropagation();const t=getMouseAngle(e,document.querySelector(".knob_center"));knobDragged=!0,prevAngleRad=t,prevRotate=curRotate}function stopDragging(e){knobDragged=!1}function dragRotate(e){if(!knobDragged)return;const t=prevAngleRad;let o=getMouseAngle(e,document.querySelector(".knob_center")),r=o-t;prevAngleRad=o,r<0&&(r+=2*Math.PI),r>Math.PI&&(r-=2*Math.PI);const n=r/Math.PI/2,a=prevRotate+n;prevRotate=a,setRotate(a)}function setEvtListeners(){const e=document.querySelector(".knob-container");e.addEventListener("mousedown",startDragging),document.addEventListener("mouseup",stopDragging),document.addEventListener("mousemove",dragRotate),e.addEventListener("touchstart",startDragging),document.addEventListener("touchend",stopDragging),document.addEventListener("touchmove",dragRotate)}setEvtListeners(),setRotate(0),document.querySelectorAll(".modal_close").forEach(e=>{e.onclick=function(){document.querySelectorAll(".modal").forEach(e=>{e.classList.toggle("modal_open",!1),document.querySelector("body").style.overflow="auto"})}});const TEMPS={manual:-10,cold:0,warm:23,hot:30};document.querySelectorAll(".modal__filter-item_temp").forEach(e=>{e.onclick=function(){document.querySelector(".adjust-bar_theme_temp").value=TEMPS[this.id],document.querySelector(".modal_temp .modal__value").innerHTML=TEMPS[this.id]>0?"+"+TEMPS[this.id]:TEMPS[this.id]}});const showModal=function(e){document.querySelector(e).classList.toggle("modal_open",!0),document.querySelector("body").style.overflow="hidden"};document.querySelectorAll(".panel_temp").forEach(e=>{e.onclick=function(){showModal(".modal_temp")}}),document.querySelectorAll(".panel_lamp").forEach(e=>{e.onclick=function(){showModal(".modal_light")}}),document.querySelectorAll(".panel_floor").forEach(e=>{e.onclick=function(){showModal(".modal_knob")}});const arrowLeftScens=document.querySelector(".scenarios__paginator .paginator__arrow_left"),arrowRightScens=document.querySelector(".scenarios__paginator .paginator__arrow_right"),panelCountScens=document.querySelectorAll(".scenarios__panel").length,pageCountScens=document.querySelectorAll(".scenarios__page").length,scenarios=document.querySelector(".scenarios"),pagiantorScens=document.querySelector(".scenarios__paginator");let currentPage=1;pagiantorScens.classList.toggle("paginator_hide",panelCountScens<=9),arrowRightScens.addEventListener("click",function(){currentPage<pageCountScens&&(currentPage+=1,arrowRightScens.classList.toggle("paginator__arrow_disabled",currentPage===pageCountScens),arrowLeftScens.classList.toggle("paginator__arrow_disabled",1===currentPage),scenarios.scroll({top:0,left:645,behavior:"smooth"}))}),arrowLeftScens.addEventListener("click",function(){currentPage>1&&(currentPage-=1,arrowRightScens.classList.toggle("paginator__arrow_disabled",currentPage===pageCountScens),arrowLeftScens.classList.toggle("paginator__arrow_disabled",1===currentPage),scenarios.scroll({top:0,left:-645,behavior:"smooth"}))});const selectButton=document.querySelector(".filter__select-button"),selectButtonText=document.querySelector(".filter__select-button .button__text"),selectOptions=document.querySelectorAll(".filter__select-item"),popup=document.querySelector(".filter__select-popup");selectButton.addEventListener("click",function(){popup.classList.toggle("filter__select-popup_open")});let widths="";window.addEventListener("scroll",function(){widths+=document.querySelectorAll("body")[0].offsetWidth,document.querySelector(".stats").innerHTML=widths}),selectOptions.forEach(e=>{e.addEventListener("click",function(e){document.querySelector("#"+e.target.dataset.group).checked=!0,selectOptions.forEach(e=>e.classList.toggle("filter__select-item_checked",!1)),e.target.classList.toggle("filter__select-item_checked",!0),popup.classList.toggle("filter__select-popup_open",!1),selectButtonText.innerText=e.target.innerText})}),document.querySelector(".menu__icon").addEventListener("click",function(){document.querySelector(".menu").classList.toggle("menu_open")}),window.onload=function(){document.querySelector(".panel_banner").innerHTML='<a target="_blank" href="http://ya.ru"><img src="assets/banner.jpg" border="0"></a>'};</script>
 </body>
-
 </html>
