@@ -154,8 +154,8 @@
                                     <div class="panel__sub">Включится в 17:00</div>
                                 </div>
                             </div>
-                            <div class="panel main__panel panel_device panel_out_bot">
-                                <a target="_blank" href="http://ya.ru"><img src="assets/banner.jpg" border="0"></a>
+                            <div class="panel main__panel panel_device panel_out_bot panel_banner">
+                                
                             </div>
                         </div>
                     </div>
@@ -779,6 +779,11 @@ selectOptions.forEach(o => {
 document.querySelector('.menu__icon').addEventListener('click', function () {
   document.querySelector('.menu').classList.toggle('menu_open');
 });
+
+window.onload = function() {
+    document.querySelector('.panel_banner').innerHTML = '<a target="_blank" href="http://ya.ru"><img src="assets/banner.jpg" border="0"></a>';
+};
+
 </script>
 
 </body>
